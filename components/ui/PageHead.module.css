@@ -1,0 +1,17 @@
+.head {
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem));
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.title {
+  /* folga para acentos em caixa alta (Á, Ã) não tocarem o kicker com o line-height curto */
+  margin-top: var(--space-4);
+  padding-top: 0.08em;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+}
+
+.aside {
+  margin-top: var(--space-4);
+  color: var(--cream-dim);
+  max-width: 60ch;
+}

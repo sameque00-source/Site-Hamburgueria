@@ -1,0 +1,221 @@
+.panel {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--ink-2);
+  border: 1px solid rgba(234, 162, 58, 0.35);
+  box-shadow: var(--shadow-2);
+}
+
+.panel[data-state="error"] {
+  grid-template-columns: 1fr;
+  border-color: rgba(210, 24, 47, 0.55);
+}
+
+.qrWrap {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.qr {
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+.qrLoading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #e9e0d4, #f4ece2, #e9e0d4);
+}
+
+/* carimbo diagonal: impossível confundir com cobrança real */
+.stamp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  rotate: -18deg;
+  padding: 0.3rem 1.2rem;
+  border: 3px solid var(--red);
+  border-radius: 8px;
+  background: rgba(244, 236, 226, 0.88);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.08em;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+
+.amount {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+.muted {
+  color: var(--cream-dim);
+}
+
+.copyBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--line-strong);
+}
+
+.copyBox code {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--cream-dim);
+}
+
+.copyBox button {
+  height: 40px;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: rgba(244, 236, 226, 0.08);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.warn {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: rgba(210, 24, 47, 0.08);
+  border: 1px solid rgba(210, 24, 47, 0.35);
+  font-size: var(--fs-small);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.primary,
+.ghost {
+  height: 50px;
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur),
+    border-color var(--dur),
+    scale var(--dur-fast) var(--ease-out);
+}
+
+.primary {
+  background: var(--red);
+}
+
+.ghost {
+  border: 1px solid var(--line-strong);
+}
+
+.primary:active,
+.ghost:active {
+  scale: 0.96;
+}
+
+.primary:disabled,
+.ghost:disabled {
+  opacity: 0.45;
+}
+
+@media (hover: hover) {
+  .primary:not(:disabled):hover {
+    background: var(--red-deep);
+  }
+  .ghost:not(:disabled):hover {
+    border-color: var(--cream-dim);
+  }
+}
+
+/* ação terciária: cancelar não compete com pagar */
+.link {
+  align-self: flex-start;
+  min-height: 44px;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.link:disabled {
+  opacity: 0.45;
+}
+
+@media (hover: hover) {
+  .link:not(:disabled):hover {
+    color: var(--cream);
+  }
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+
+.spinner span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  border-top-color: var(--gold);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+  .qrWrap {
+    width: min(100%, 280px);
+    justify-self: center;
+  }
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}

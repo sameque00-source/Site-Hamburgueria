@@ -1,0 +1,224 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.group {
+  border: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.legend {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+.h {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.rule {
+  font-size: var(--fs-label);
+  color: var(--cream-faint);
+  white-space: nowrap;
+}
+
+.group[data-missing] .rule {
+  color: #ff6b7d;
+}
+
+.option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition:
+    border-color var(--dur),
+    background-color var(--dur);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option:has(input:focus-visible) {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--dur-fast),
+    border-color var(--dur-fast);
+}
+
+.check[data-round] {
+  border-radius: 50%;
+}
+
+.option[data-on] {
+  border-color: rgba(234, 162, 58, 0.45);
+  background: var(--gold-soft);
+}
+
+.option[data-on] .check {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.option[data-on] .check::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border: 2px solid var(--ink);
+  border-top: 0;
+  border-right: 0;
+  rotate: -45deg;
+  translate: 0 -1px;
+}
+
+.oName {
+  font-size: 0.92rem;
+}
+
+.oPrice {
+  font-size: var(--fs-small);
+  color: var(--cream-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) {
+  .option:hover {
+    border-color: var(--line-strong);
+  }
+}
+
+.error {
+  font-size: var(--fs-small);
+  color: #ff6b7d;
+}
+
+/* ---------- observação ---------- */
+.noteField {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.noteField textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 64px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: rgba(244, 236, 226, 0.03);
+  color: var(--cream);
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.noteField textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.counter {
+  justify-self: end;
+  font-size: var(--fs-micro);
+  color: var(--cream-faint);
+}
+
+/* ---------- compra ---------- */
+.buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+}
+
+.qty button {
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  transition: background-color var(--dur-fast);
+}
+
+.qty button:disabled {
+  opacity: 0.3;
+}
+
+.qty output {
+  min-width: 2ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+@media (hover: hover) {
+  .qty button:not(:disabled):hover {
+    background: rgba(244, 236, 226, 0.06);
+  }
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.price {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.demo {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.unavailable {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--line-strong);
+  color: var(--cream-dim);
+  text-align: center;
+}

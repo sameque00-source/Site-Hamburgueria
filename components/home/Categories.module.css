@@ -1,0 +1,291 @@
+.section {
+  position: relative;
+  z-index: var(--z-base);
+  /* sobrepõe o final do hero: a cortina sobe por cima do palco */
+  margin-top: -12vh;
+  padding-block: calc(var(--section-y) + 2vh) clamp(3rem, 6vw, 5rem);
+}
+
+/* cortina que cobre o hero ao entrar — continuidade entre seções */
+.curtain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(70% 40% at 50% 0%, rgba(61, 10, 18, 0.35), transparent 70%),
+    var(--ink-2);
+  border-top: 1px solid var(--line);
+  transform-origin: 50% 0;
+  box-shadow: 0 -40px 80px -30px rgba(0, 0, 0, 0.9);
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-5) var(--space-6);
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.title {
+  margin-top: var(--space-4);
+  font-size: var(--fs-h2);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.counter {
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  color: var(--cream-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter span:first-child {
+  color: var(--cream);
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.controls button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  font-size: 1.1rem;
+  transition:
+    border-color var(--dur),
+    opacity var(--dur),
+    background-color var(--dur),
+    scale var(--dur-fast) var(--ease-out);
+}
+
+.controls button:disabled {
+  opacity: 0.28;
+}
+
+.controls button:active:not(:disabled) {
+  scale: 0.92;
+}
+
+@media (hover: hover) {
+  .controls button:not(:disabled):hover {
+    border-color: var(--cream);
+    background: rgba(244, 236, 226, 0.05);
+  }
+}
+
+/* ---------- trilho ---------- */
+.rail {
+  --inset: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+  list-style: none;
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--inset);
+  padding-inline: var(--inset);
+  padding-block: var(--space-2);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  outline-offset: -2px;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* durante o arrasto: sem snap e sem seleção de texto */
+.dragging {
+  scroll-snap-type: none;
+  user-select: none;
+  cursor: grabbing;
+}
+
+.dragging .card {
+  pointer-events: none;
+}
+
+.item {
+  flex: 0 0 clamp(250px, 26vw, 350px);
+  scroll-snap-align: start;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--radius);
+  background: var(--ink-3);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    translate var(--dur) var(--ease-out);
+  -webkit-user-drag: none;
+}
+
+.item[data-active] .card {
+  border-color: rgba(234, 162, 58, 0.35);
+}
+
+.num {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-5);
+  z-index: 1;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  color: var(--cream-faint);
+  transition: color var(--dur);
+}
+
+.item[data-active] .num {
+  color: var(--gold);
+}
+
+.visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  inset: 12% 10% 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, var(--light-warm), var(--light-red) 45%, transparent 70%);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.glow[data-tone="1"] {
+  background: radial-gradient(circle at 50% 45%, rgba(210, 24, 47, 0.22), rgba(61, 10, 18, 0.32) 45%, transparent 70%);
+}
+
+.glow[data-tone="2"] {
+  background: radial-gradient(circle at 50% 45%, rgba(244, 236, 226, 0.09), rgba(156, 15, 33, 0.14) 45%, transparent 70%);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.meta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.name {
+  font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+  line-height: 1;
+}
+
+.tag {
+  font-size: var(--fs-small);
+  color: var(--cream-dim);
+}
+
+.go {
+  position: absolute;
+  right: var(--space-5);
+  top: var(--space-5);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  translate: -6px 0;
+  transition:
+    opacity var(--dur),
+    translate var(--dur) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--line-strong);
+    translate: 0 -4px;
+  }
+  .card:hover .glow {
+    transform: scale(1.12);
+  }
+  .card:hover .photo {
+    transform: scale(1.05);
+  }
+  .card:hover .go {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.card:focus-visible .go {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* touch: indicação sempre visível, sem depender de hover */
+@media (hover: none) {
+  .go {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---------- rodapé do trilho ---------- */
+.foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.track {
+  flex: 1;
+  max-width: 280px;
+  height: 1px;
+  background: var(--line-strong);
+  overflow: hidden;
+}
+
+.track span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+@media (max-width: 560px) {
+  .item {
+    flex-basis: 74vw;
+  }
+  .controls button {
+    width: 44px;
+    height: 44px;
+  }
+  .nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

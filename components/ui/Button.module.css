@@ -1,0 +1,115 @@
+.btn {
+  --h: 48px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  height: var(--h);
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    scale var(--dur-fast) var(--ease-out),
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    opacity var(--dur);
+}
+
+.lg {
+  --h: 58px;
+  padding-inline: var(--space-6);
+  font-size: 0.85rem;
+}
+
+.primary {
+  background: var(--red);
+  color: var(--cream);
+  box-shadow: 0 12px 30px -14px rgba(210, 24, 47, 0.7);
+}
+
+/* preenchimento que sobe + faixa de luz que atravessa — confirma o alvo */
+.primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--red-deep);
+  transform: translateY(101%);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.primary::after {
+  content: "";
+  position: absolute;
+  inset: -20% auto -20% -40%;
+  width: 30%;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-120%) skewX(-12deg);
+}
+
+.ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--cream);
+}
+
+.ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--cream);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.label {
+  position: relative;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .primary:hover::before {
+    transform: translateY(0);
+  }
+  .primary:hover::after {
+    transform: translateX(520%) skewX(-12deg);
+    transition: transform 0.9s var(--ease-out);
+  }
+  .ghost:hover {
+    color: var(--ink);
+    border-color: var(--cream);
+  }
+  .ghost:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .btn:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+.btn:active {
+  scale: 0.96;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  box-shadow: none;
+  pointer-events: none;
+}

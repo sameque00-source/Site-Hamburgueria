@@ -1,0 +1,49 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(6rem, 16vw, 11rem);
+  text-align: center;
+  isolation: isolate;
+}
+
+/* luz única vinda de baixo — reforça o fechamento da página */
+.light {
+  position: absolute;
+  left: 50%;
+  bottom: -45%;
+  width: min(1100px, 140vw);
+  aspect-ratio: 1;
+  margin-left: calc(min(1100px, 140vw) / -2);
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(210, 24, 47, 0.38), rgba(61, 10, 18, 0.38) 40%, transparent 68%);
+  will-change: transform;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.crown {
+  width: 44px;
+  color: var(--gold);
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: clamp(3.4rem, 11vw, 9.5rem);
+  line-height: 0.88;
+}
+
+.lede {
+  margin-top: var(--space-5);
+  max-width: 36ch;
+  color: var(--cream-dim);
+  font-size: var(--fs-lede);
+}
+
+.ctas {
+  margin-top: var(--space-6);
+}

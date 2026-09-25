@@ -1,0 +1,117 @@
+.section {
+  padding-block: var(--section-y);
+  background: var(--ink-2);
+  border-block: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.mediaCol {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-6));
+}
+
+.media {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ink-3);
+  box-shadow: var(--shadow-2);
+}
+
+/* maior que a moldura para o parallax não revelar bordas */
+.mediaInner {
+  position: relative;
+  height: 120%;
+  margin-top: -10%;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note {
+  position: absolute;
+  right: var(--space-4);
+  /* a camada interna é 20% mais alta (parallax): mantém o selo dentro da área visível */
+  bottom: calc(10% + var(--space-4));
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(10, 8, 7, 0.66);
+  color: var(--cream-dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-top: var(--space-4);
+  font-size: var(--fs-h2);
+}
+
+.accent {
+  color: var(--red);
+}
+
+.lede {
+  margin-top: var(--space-5);
+  max-width: var(--max-text);
+  color: var(--cream-dim);
+  font-size: var(--fs-lede);
+}
+
+.chapters {
+  list-style: none;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.chapter {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.n {
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  padding-top: 0.5rem;
+}
+
+.cTitle {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1;
+}
+
+.cText {
+  margin-top: var(--space-2);
+  max-width: 40ch;
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .mediaCol {
+    position: relative;
+    top: auto;
+  }
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+}

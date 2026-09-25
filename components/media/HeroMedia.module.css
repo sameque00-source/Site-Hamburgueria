@@ -1,0 +1,25 @@
+.fill {
+  position: absolute;
+  inset: 0;
+}
+
+.fill :global(picture),
+.fill img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fill img,
+.media {
+  object-fit: cover;
+  object-position: var(--hero-focus, 72% 50%);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

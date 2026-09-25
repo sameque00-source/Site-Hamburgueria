@@ -1,0 +1,208 @@
+.hero {
+  position: relative;
+  /* +12vh: faixa coberta pela cortina da seção seguinte */
+  min-height: max(calc(100svh + 12vh), 760px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+}
+
+/* ---------- mídia ---------- */
+.stage {
+  position: absolute;
+  inset: 0 0 12vh 0;
+  z-index: -1;
+  transform-origin: 70% 50%;
+  will-change: transform;
+}
+
+/* a foto encaixa pela LARGURA, ancorada na base: em telas largas cobre
+   tudo; em telas mais quadradas preserva a composição (burger à direita,
+   espaço escuro à esquerda para o texto) em vez de recortar as laterais */
+.media {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 1376 / 768;
+  min-height: 70%;
+  --hero-focus: 72% 55%;
+}
+
+/* leitura do texto + fusão das bordas da foto com o fundo */
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 8, 7, 0.9) 0%, rgba(10, 8, 7, 0.5) 30%, transparent 58%),
+    linear-gradient(0deg, var(--ink) 0%, rgba(10, 8, 7, 0.6) 12%, transparent 36%),
+    linear-gradient(180deg, var(--ink) 0%, rgba(10, 8, 7, 0.4) 16%, transparent 34%);
+  pointer-events: none;
+}
+
+/* ---------- texto ---------- */
+.copy {
+  position: relative;
+  padding-bottom: calc(clamp(3rem, 7vh, 5.5rem) + 12vh);
+  padding-top: calc(var(--header-h) + var(--space-6));
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* no retrato a foto termina atrás do texto: a etiqueta ganha base escura p/ contraste */
+@media (max-width: 900px) and (orientation: portrait) {
+  .eyebrow {
+    padding: 6px 12px 6px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(10, 8, 7, 0.72);
+    color: var(--cream);
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(210, 24, 47, 0.18);
+}
+
+.title {
+  /* 3 linhas ("O sabor que / merece uma / coroa.") → escala menor que o token do hero */
+  font-size: clamp(3.2rem, 9.2vw, 9rem);
+  line-height: 0.88;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.accent {
+  color: var(--red);
+  padding-left: 0.9em;
+}
+
+.bottom {
+  margin-top: clamp(1.75rem, 4vh, 3rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.lede {
+  max-width: 34ch;
+  color: var(--cream-dim);
+  font-size: var(--fs-lede);
+}
+
+.ctas {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.scroll {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  writing-mode: vertical-rl;
+  transition: color var(--dur);
+}
+
+.scroll i {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(var(--cream-faint), transparent);
+  animation: drip 2.4s var(--ease-out) infinite;
+  transform-origin: top;
+}
+
+@media (hover: hover) {
+  .scroll:hover {
+    color: var(--cream);
+  }
+}
+
+@keyframes drip {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* estado inicial antes da timeline — só com JS e movimento permitido */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .hero [data-hero-line] > span {
+    transform: translateY(110%);
+  }
+  .hero [data-hero-fade],
+  .hero [data-hero-media] {
+    opacity: 0;
+  }
+}
+
+/* ---------- tablet/mobile: foto em cima, texto embaixo ---------- */
+@media (max-width: 900px) and (orientation: portrait) {
+  .hero {
+    align-items: stretch;
+  }
+  /* a foto termina onde o bloco de texto começa (texto nunca sobre o burger) */
+  .stage {
+    inset: 0 0 auto 0;
+    height: min(48%, 118vw);
+    transform-origin: 50% 40%;
+  }
+  .media {
+    inset: 0;
+    aspect-ratio: auto;
+    min-height: 0;
+    height: 100%;
+    --hero-focus: 50% 45%;
+  }
+  .shade {
+    background:
+      linear-gradient(0deg, var(--ink) 0%, rgba(10, 8, 7, 0.5) 14%, transparent 34%),
+      linear-gradient(180deg, rgba(10, 8, 7, 0.65) 0%, transparent 20%);
+  }
+  .copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .accent {
+    padding-left: 0.5em;
+  }
+  .scroll {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .ctas {
+    width: 100%;
+  }
+  .ctas > * {
+    flex: 1 1 100%;
+  }
+}
